@@ -21,6 +21,6 @@ public class PushController : MonoBehaviour
 
     public void Push()
     {
-        player.transform.Translate(Vector2.right * 3 * Time.deltaTime);
+        player.transform.Translate(Vector2.right * 15 * Time.deltaTime);
     }
 }

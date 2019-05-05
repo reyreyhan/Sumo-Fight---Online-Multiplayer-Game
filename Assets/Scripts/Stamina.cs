@@ -5,8 +5,6 @@ using UnityEngine.UI;
 
 public class Stamina : MonoBehaviour
 {
-    public float staminaBar;
-    public Image staminaImage;
 
     // Start is called before the first frame update
     void Start()
@@ -17,6 +15,8 @@ public class Stamina : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        staminaImage.fillAmount = staminaBar;
+        
     }
+
+
 }
