@@ -6,7 +6,7 @@ using UnityEngine;
 public class PushController : MonoBehaviour
 {
 
-    public GameObject player;
+    public GameObject[] player;
 
     // Start is called before the first frame update
     public void Start()
@@ -19,8 +19,13 @@ public class PushController : MonoBehaviour
 
     }
 
-    public void Push()
+    public void PushPlayer1()
     {
-        player.transform.Translate(Vector2.right * 15 * Time.deltaTime);
+        player[0].transform.Translate(Vector2.right * 25 * Time.deltaTime);
+    }
+
+    public void PushPlayer2()
+    {
+        player[1].transform.Translate(Vector2.left * 25 * Time.deltaTime);
     }
 }
