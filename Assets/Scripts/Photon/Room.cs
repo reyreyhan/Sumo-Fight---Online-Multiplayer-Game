@@ -7,8 +7,9 @@ using Photon.Realtime;
 
 public class Room : MonoBehaviour
 {
-    public Text roomStatus;
+    //public Text roomStatus;
     public GameObject[] player;
+    public GameObject button;
 
     // Start is called before the first frame update
     void Start()
@@ -19,20 +20,22 @@ public class Room : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        roomStatus.text = "Waiting For Player";
+        //roomStatus.text = "Waiting For Player";
         
         if (PhotonNetwork.CurrentRoom.PlayerCount == 1)
         {
             player[0].SetActive(true);
             player[1].SetActive(false);
+            button.SetActive(false);
             Debug.Log(PhotonNetwork.CurrentRoom.PlayerCount);
         } else
         {
             Debug.Log(PhotonNetwork.CurrentRoom.PlayerCount);
             player[0].SetActive(true);
             player[1].SetActive(true);
-            roomStatus.text = "Waiting To Battle Room";
-            StartCoroutine(TwoPlayerInRoom());
+            button.SetActive(true);
+            //roomStatus.text = "Waiting To Battle Room";
+            //StartCoroutine(TwoPlayerInRoom());
         }
     }
 

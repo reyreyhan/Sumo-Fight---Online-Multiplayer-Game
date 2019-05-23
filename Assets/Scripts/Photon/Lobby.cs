@@ -41,6 +41,6 @@ public class Lobby : MonoBehaviourPunCallbacks
     public override void OnJoinedRoom()
     {
         StopAllCoroutines();
-        PhotonNetwork.LoadLevel("Room");
+        PhotonNetwork.LoadLevel("Battle");
     }
 }
