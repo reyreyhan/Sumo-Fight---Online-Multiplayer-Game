@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Realtime;
+using Photon.Pun;
 
 public class GameManager : MonoBehaviour
 {
@@ -34,11 +36,22 @@ public class GameManager : MonoBehaviour
 
     public void OnClickPushButton()
     {
-        if (Stamina >= PUSH_STAMINA_COST)
+        if(PhotonNetwork.IsMasterClient)
         {
-            Stamina -= 100;
-            PushPoints += 50;
+            if (Stamina >= PUSH_STAMINA_COST)
+            {
+                Stamina -= 100;
+                PushPoints += 50;
+            }
+        } else
+        {
+            if (Stamina >= PUSH_STAMINA_COST)
+            {
+                Stamina -= 100;
+                PushPoints -= 50;
+            }
         }
+
     }
 
     private void InitPlayers()
@@ -49,21 +62,39 @@ public class GameManager : MonoBehaviour
 
     private bool CheckEndGame()
     {
-        if (PushPoints > MAX_PUSH_POINTS){
-            Debug.Log("You Win");
-            return false;
+        if (PhotonNetwork.IsMasterClient)
+        {
+            if (PushPoints > MAX_PUSH_POINTS)
+            {
+                Debug.Log("You Win");
+                return false;
+            }
+            else if (PushPoints < 0)
+            {
+                Debug.Log("You Lose");
+                return false;
+            }
+        } else
+        {
+            if (PushPoints > MAX_PUSH_POINTS)
+            {
+                Debug.Log("You Lose");
+                return false;
+            }
+            else if (PushPoints < 0)
+            {
+                Debug.Log("You Win");
+                return false;
+            }
         }
-        else if(PushPoints < 0){
-            Debug.Log("You Lose");
-            return false;
-        }
+
 
         return true;
     }
 
     private void UpdatePlayers()
     {
-        if (isHost)
+        if (PhotonNetwork.IsMasterClient)
         {
             arrayOfPlayer[0].transform.position = new Vector3(-3 + (5 * PushPoints / MAX_PUSH_POINTS), 0);
             arrayOfPlayer[1].transform.position = new Vector3(-2 + (5 * PushPoints / MAX_PUSH_POINTS), 0);
