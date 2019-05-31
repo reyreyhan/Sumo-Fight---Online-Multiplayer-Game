@@ -7,7 +7,9 @@ using Photon.Pun;
 public class GameManager : MonoBehaviour
 {
     [SerializeField] GameObject[] arrayOfPlayer;
+    public GameObject[] playerSpawnPoint;
     [SerializeField] GameObject staminaBar;
+    public UnityEngine.UI.Button btnPush;
 
     private const bool isHost = true;
     private const float MAX_STAMINA = 1000, MAX_PUSH_POINTS = 2000, STAMINA_REGEN = 1, PUSH_STAMINA_COST = 100;
@@ -22,11 +24,23 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         InitPlayers();
+        if (PhotonNetwork.IsMasterClient)
+        {
+            PhotonNetwork.Instantiate(arrayOfPlayer[0].name, playerSpawnPoint[0].transform.position, Quaternion.identity, 0);
+        }
+        else
+        {
+            PhotonNetwork.Instantiate(arrayOfPlayer[1].name, playerSpawnPoint[1].transform.position, Quaternion.identity, 0);
+        }
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
+        if(PhotonNetwork.CurrentRoom.PlayerCount == 2)
+        {
+            btnPush.gameObject.SetActive(true);
+        }
         if (CheckEndGame())
         {
             UpdatePlayers();
