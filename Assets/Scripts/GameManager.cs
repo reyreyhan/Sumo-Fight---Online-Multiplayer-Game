@@ -28,11 +28,11 @@ public class GameManager : MonoBehaviour
         InitPlayers();
         if (PhotonNetwork.IsMasterClient)
         {
-            PhotonNetwork.Instantiate(arrayOfPlayer[0].name, playerSpawnPoint[0].transform.position, Quaternion.identity, 0);
+            arrayOfPlayer[0] = PhotonNetwork.Instantiate(arrayOfPlayer[0].name, playerSpawnPoint[0].transform.position, Quaternion.identity, 0);
         }
         else
         {
-            PhotonNetwork.Instantiate(arrayOfPlayer[1].name, playerSpawnPoint[1].transform.position, Quaternion.identity, 0);
+            arrayOfPlayer[1] = PhotonNetwork.Instantiate(arrayOfPlayer[1].name, playerSpawnPoint[1].transform.position, Quaternion.identity, 0);
         }
 
     }
@@ -51,20 +51,10 @@ public class GameManager : MonoBehaviour
         }
 
         Debug.Log(PhotonNetwork.IsMasterClient);
-        arrayOfPlayer[1].transform.position = arrayOfPlayer[2].transform.position + new Vector3(0.01f, 0, 0);
-        //Debug.Log(arrayOfPlayer[2].name);
     }
 
     public void OnClickPushButton()
     {
-        if (arrayOfPlayer[2].name == "Testing")
-        {
-            arrayOfPlayer[2].transform.position = arrayOfPlayer[2].transform.position + new Vector3(0.3f, 0, 0);
-            Debug.Log("Move");
-        }
-
-        
-        Debug.Log(MoveObject.state);
 
         if (PhotonNetwork.IsMasterClient)
         {
@@ -73,8 +63,7 @@ public class GameManager : MonoBehaviour
                 Stamina -= 100;
                 PushPoints += 50;
                 Debug.Log("Master Push");
-                //arrayOfPlayer[0].transform.position = arrayOfPlayer[0].transform.position + new Vector3(0.3f, 0, 0);
-                //MoveObject.MovePlayerMaster();
+                arrayOfPlayer[0].transform.position = arrayOfPlayer[0].transform.position + new Vector3(5, 0, 0);
             }
         } else
         {
@@ -83,9 +72,7 @@ public class GameManager : MonoBehaviour
                 Stamina -= 100;
                 PushPoints -= 50;
                 Debug.Log("Client Push");
-                //MoveObject.MovePlayerClient();
-                //arrayOfPlayer[1].transform.position = arrayOfPlayer[1].transform.position + new Vector3(0.3f, 0, 0);
-                //Debug.Log(arrayOfPlayer[1].name);
+                arrayOfPlayer[1].transform.position = arrayOfPlayer[1].transform.position + new Vector3(5, 0, 0);
             }
         }
 
