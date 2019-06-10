@@ -194,6 +194,16 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 31.7
       objectReference: {fileID: 0}
+    - target: {fileID: 3986412406811798872, guid: 74eacbb6e24017a4597ba864196e7594,
+        type: 3}
+      propertyPath: viewIdField
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3986412406811798872, guid: 74eacbb6e24017a4597ba864196e7594,
+        type: 3}
+      propertyPath: InstantiationId
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 74eacbb6e24017a4597ba864196e7594, type: 3}
 --- !u!4 &132690701 stripped
@@ -289,6 +299,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 31.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 935975520221633515, guid: b29e656e2436c3144be12d8ddeed2f4c,
+        type: 3}
+      propertyPath: viewIdField
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 935975520221633515, guid: b29e656e2436c3144be12d8ddeed2f4c,
+        type: 3}
+      propertyPath: InstantiationId
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b29e656e2436c3144be12d8ddeed2f4c, type: 3}
@@ -661,10 +681,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b7e90c6673fc1e49a6724f851a278a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  roomStatus: {fileID: 895762814}
+  playerSpawnPoint: []
   player:
   - {fileID: 245529709}
   - {fileID: 132690702}
+  button: {fileID: 0}
 --- !u!4 &2041004354
 Transform:
   m_ObjectHideFlags: 0

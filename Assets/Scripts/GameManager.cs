@@ -6,6 +6,8 @@ using Photon.Pun;
 
 public class GameManager : MonoBehaviour
 {
+    public MoveObject MoveObject;
+
     [SerializeField] GameObject[] arrayOfPlayer;
     public GameObject[] playerSpawnPoint;
     [SerializeField] GameObject staminaBar;
@@ -32,6 +34,7 @@ public class GameManager : MonoBehaviour
         {
             PhotonNetwork.Instantiate(arrayOfPlayer[1].name, playerSpawnPoint[1].transform.position, Quaternion.identity, 0);
         }
+
     }
 
     // Update is called once per frame
@@ -46,16 +49,32 @@ public class GameManager : MonoBehaviour
             UpdatePlayers();
             UpdateStamina();
         }
+
+        Debug.Log(PhotonNetwork.IsMasterClient);
+        arrayOfPlayer[1].transform.position = arrayOfPlayer[2].transform.position + new Vector3(0.01f, 0, 0);
+        //Debug.Log(arrayOfPlayer[2].name);
     }
 
     public void OnClickPushButton()
     {
-        if(PhotonNetwork.IsMasterClient)
+        if (arrayOfPlayer[2].name == "Testing")
+        {
+            arrayOfPlayer[2].transform.position = arrayOfPlayer[2].transform.position + new Vector3(0.3f, 0, 0);
+            Debug.Log("Move");
+        }
+
+        
+        Debug.Log(MoveObject.state);
+
+        if (PhotonNetwork.IsMasterClient)
         {
             if (Stamina >= PUSH_STAMINA_COST)
             {
                 Stamina -= 100;
                 PushPoints += 50;
+                Debug.Log("Master Push");
+                //arrayOfPlayer[0].transform.position = arrayOfPlayer[0].transform.position + new Vector3(0.3f, 0, 0);
+                //MoveObject.MovePlayerMaster();
             }
         } else
         {
@@ -63,6 +82,10 @@ public class GameManager : MonoBehaviour
             {
                 Stamina -= 100;
                 PushPoints -= 50;
+                Debug.Log("Client Push");
+                //MoveObject.MovePlayerClient();
+                //arrayOfPlayer[1].transform.position = arrayOfPlayer[1].transform.position + new Vector3(0.3f, 0, 0);
+                //Debug.Log(arrayOfPlayer[1].name);
             }
         }
 
