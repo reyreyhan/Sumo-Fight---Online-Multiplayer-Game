@@ -21,6 +21,7 @@ public class GameManager : MonoBehaviour
 
     public float Stamina { get => stamina; set => stamina = value; }
     public float PushPoints { get => pushPoints; set => pushPoints = value; }
+ 
 
     // Start is called before the first frame update
     void Start()
@@ -28,11 +29,11 @@ public class GameManager : MonoBehaviour
         InitPlayers();
         if (PhotonNetwork.IsMasterClient)
         {
-            arrayOfPlayer[0] = PhotonNetwork.Instantiate(arrayOfPlayer[0].name, playerSpawnPoint[0].transform.position, Quaternion.identity, 0);
+            arrayOfPlayer[0] = PhotonNetwork.Instantiate(arrayOfPlayer[0].name, new Vector3(-1.5f,0,0), Quaternion.identity, 0);
         }
         else
         {
-            arrayOfPlayer[1] = PhotonNetwork.Instantiate(arrayOfPlayer[1].name, playerSpawnPoint[1].transform.position, Quaternion.identity, 0);
+            arrayOfPlayer[1] = PhotonNetwork.Instantiate(arrayOfPlayer[1].name, new Vector3(1.5f, 0, 0), Quaternion.identity, 0);
         }
 
     }
@@ -46,11 +47,9 @@ public class GameManager : MonoBehaviour
         }
         if (CheckEndGame())
         {
-            UpdatePlayers();
+            //UpdatePlayers();
             UpdateStamina();
         }
-
-        Debug.Log(PhotonNetwork.IsMasterClient);
     }
 
     public void OnClickPushButton()
@@ -63,16 +62,18 @@ public class GameManager : MonoBehaviour
                 Stamina -= 100;
                 PushPoints += 50;
                 Debug.Log("Master Push");
-                arrayOfPlayer[0].transform.position = arrayOfPlayer[0].transform.position + new Vector3(5, 0, 0);
+                arrayOfPlayer[0].GetComponent<Transform>().Translate(new Vector3(50 * Time.deltaTime, 0, 0));
+                
             }
         } else
         {
             if (Stamina >= PUSH_STAMINA_COST)
             {
-                Stamina -= 100;
+                Stamina -= 100; 
                 PushPoints -= 50;
                 Debug.Log("Client Push");
-                arrayOfPlayer[1].transform.position = arrayOfPlayer[1].transform.position + new Vector3(5, 0, 0);
+                arrayOfPlayer[1].GetComponent<Transform>().Translate(new Vector3(-50 * Time.deltaTime, 0, 0));
+              
             }
         }
 
