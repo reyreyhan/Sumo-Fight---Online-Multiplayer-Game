@@ -18,6 +18,7 @@ GameObject:
   - component: {fileID: 146128078506637764}
   - component: {fileID: 1841468276042255256}
   - component: {fileID: 925223492652089128}
+  - component: {fileID: 3470521649912343119}
   m_Layer: 0
   m_Name: Player2
   m_TagString: Untagged
@@ -131,7 +132,7 @@ MonoBehaviour:
   Synchronization: 3
   OwnershipTransfer: 0
   ObservedComponents:
-  - {fileID: 1456898586657006670}
+  - {fileID: 3470521649912343119}
   viewIdField: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
@@ -142,7 +143,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 938178171208882548}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b5a518ebff48faa4cac77a6697a1ddc5, type: 3}
   m_Name: 
@@ -166,6 +167,8 @@ MonoBehaviour:
   playerSpawnPoint: []
   staminaBar: {fileID: 0}
   btnPush: {fileID: 0}
+  btnWin: {fileID: 0}
+  btnLose: {fileID: 0}
 --- !u!114 &1347231413231427132
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -241,3 +244,18 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 6
+--- !u!114 &3470521649912343119
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 938178171208882548}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizePosition: 1
+  m_SynchronizeRotation: 1
+  m_SynchronizeScale: 0

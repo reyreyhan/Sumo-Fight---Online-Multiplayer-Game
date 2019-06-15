@@ -12,6 +12,8 @@ public class GameManager : MonoBehaviour
     public GameObject[] playerSpawnPoint;
     [SerializeField] GameObject staminaBar;
     public UnityEngine.UI.Button btnPush;
+    public UnityEngine.UI.Button btnWin;
+    public UnityEngine.UI.Button btnLose;
 
     private const bool isHost = true;
     private const float MAX_STAMINA = 1000, MAX_PUSH_POINTS = 2000, STAMINA_REGEN = 1, PUSH_STAMINA_COST = 100;
@@ -29,11 +31,11 @@ public class GameManager : MonoBehaviour
         InitPlayers();
         if (PhotonNetwork.IsMasterClient)
         {
-            arrayOfPlayer[0] = PhotonNetwork.Instantiate(arrayOfPlayer[0].name, new Vector3(-1.5f,0,0), Quaternion.identity, 0);
+            arrayOfPlayer[0] = PhotonNetwork.Instantiate(arrayOfPlayer[0].name, playerSpawnPoint[0].transform.position, Quaternion.identity, 0);
         }
         else
         {
-            arrayOfPlayer[1] = PhotonNetwork.Instantiate(arrayOfPlayer[1].name, new Vector3(1.5f, 0, 0), Quaternion.identity, 0);
+            arrayOfPlayer[1] = PhotonNetwork.Instantiate(arrayOfPlayer[1].name, playerSpawnPoint[1].transform.position, Quaternion.identity, 0);
         }
 
     }
@@ -50,6 +52,7 @@ public class GameManager : MonoBehaviour
             //UpdatePlayers();
             UpdateStamina();
         }
+
     }
 
     public void OnClickPushButton()
@@ -63,6 +66,7 @@ public class GameManager : MonoBehaviour
                 PushPoints += 50;
                 Debug.Log("Master Push");
                 arrayOfPlayer[0].GetComponent<Transform>().Translate(new Vector3(50 * Time.deltaTime, 0, 0));
+                Debug.Log(arrayOfPlayer[0].transform.position);
                 
             }
         } else
@@ -92,11 +96,15 @@ public class GameManager : MonoBehaviour
             if (PushPoints > MAX_PUSH_POINTS)
             {
                 Debug.Log("You Win");
+                btnPush.gameObject.SetActive(false);
+                btnWin.gameObject.SetActive(true);
                 return false;
             }
             else if (PushPoints < 0)
             {
                 Debug.Log("You Lose");
+                btnPush.gameObject.SetActive(false);
+                btnLose.gameObject.SetActive(true);
                 return false;
             }
         } else
@@ -104,11 +112,15 @@ public class GameManager : MonoBehaviour
             if (PushPoints > MAX_PUSH_POINTS)
             {
                 Debug.Log("You Lose");
+                btnPush.gameObject.SetActive(false);
+                btnLose.gameObject.SetActive(true);
                 return false;
             }
             else if (PushPoints < 0)
             {
                 Debug.Log("You Win");
+                btnPush.gameObject.SetActive(false);
+                btnWin.gameObject.SetActive(true);
                 return false;
             }
         }
