@@ -1,12 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Photon.Realtime;
 using Photon.Pun;
 
 public class GameManager : MonoBehaviour
 {
-    public MoveObject MoveObject;
 
     [SerializeField] GameObject[] arrayOfPlayer;
     public GameObject[] playerSpawnPoint;
@@ -53,6 +51,14 @@ public class GameManager : MonoBehaviour
             UpdateStamina();
         }
 
+        if (PhotonNetwork.IsMasterClient)
+        {
+            Debug.Log("Master");
+        } else
+        {
+            Debug.Log("Client");
+        }
+
     }
 
     public void OnClickPushButton()
@@ -63,10 +69,9 @@ public class GameManager : MonoBehaviour
             if (Stamina >= PUSH_STAMINA_COST)
             {
                 Stamina -= 100;
-                PushPoints += 50;
+                //PushPoints += 50;
                 Debug.Log("Master Push");
-                arrayOfPlayer[0].GetComponent<Transform>().Translate(new Vector3(50 * Time.deltaTime, 0, 0));
-                Debug.Log(arrayOfPlayer[0].transform.position);
+                arrayOfPlayer[0].GetComponent<Transform>().Translate(new Vector3(25 * Time.deltaTime, 0, 0));
                 
             }
         } else
@@ -74,9 +79,9 @@ public class GameManager : MonoBehaviour
             if (Stamina >= PUSH_STAMINA_COST)
             {
                 Stamina -= 100; 
-                PushPoints -= 50;
+                //PushPoints -= 50;
                 Debug.Log("Client Push");
-                arrayOfPlayer[1].GetComponent<Transform>().Translate(new Vector3(-50 * Time.deltaTime, 0, 0));
+                arrayOfPlayer[1].GetComponent<Transform>().Translate(new Vector3(-25 * Time.deltaTime, 0, 0));
               
             }
         }
