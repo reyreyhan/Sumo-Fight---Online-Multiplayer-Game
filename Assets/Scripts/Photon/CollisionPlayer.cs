@@ -6,7 +6,6 @@ using UnityEngine.SceneManagement;
 
 public class CollisionPlayer : MonoBehaviour
 {
-    public GameObject[] btnWinLose;
     // Start is called before the first frame update
     void Start()
     {
@@ -16,7 +15,7 @@ public class CollisionPlayer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(PhotonNetwork.IsMasterClient);
+
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -26,7 +25,6 @@ public class CollisionPlayer : MonoBehaviour
             if (collision.gameObject.name == "LimitLeft")
             {
                 SceneManager.LoadScene("LoseScene");
-                //Debug.Log(PhotonNetwork.IsMasterClient);
             }
 
             if (collision.gameObject.name == "LimitRight")
@@ -38,7 +36,6 @@ public class CollisionPlayer : MonoBehaviour
             if (collision.gameObject.name == "LimitLeft")
             {
                 SceneManager.LoadScene("WinScene");
-                //Debug.Log(PhotonNetwork.IsMasterClient);
             }
 
             if (collision.gameObject.name == "LimitRight")
