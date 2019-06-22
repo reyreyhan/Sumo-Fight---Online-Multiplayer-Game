@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class GooglePlayController : MonoBehaviour
 {
-    public GameObject loginBtn;
+    public GameObject loginBtn, leaderboardBtn, achievementBtn;
 
     // Start is called before the first frame update
     void Start()
@@ -30,13 +30,39 @@ public class GooglePlayController : MonoBehaviour
         {
             if (success == true)
             {
-                Debug.Log("Brhsl");
+                FirstLogin();
+                leaderboardBtn.SetActive(true);
+                achievementBtn.SetActive(true);
             }
             else
             {
-                Debug.Log("Gagal Login");
                 loginBtn.SetActive(true);
             }
         });
+    }
+
+    public void ShowLeaderboardUI()
+    {
+        PlayGamesPlatform.Instance.ShowLeaderboardUI(GPGSIds.leaderboard_score);
+    }
+
+    public void ShowAchievementUI()
+    {
+        PlayGamesPlatform.Instance.ShowAchievementsUI();
+    }
+
+    public void FirstLogin()
+    {
+        PlayGamesPlatform.Instance.ReportProgress(GPGSIds.achievement_login, 100f, null);
+    }
+
+    public void Win()
+    {
+        PlayGamesPlatform.Instance.ReportProgress(GPGSIds.achievement_login, 100f, null);
+    }
+
+    public void Lose()
+    {
+        PlayGamesPlatform.Instance.ReportProgress(GPGSIds.achievement_login, 100f, null);
     }
 }
