@@ -58,11 +58,11 @@ public class GooglePlayController : MonoBehaviour
 
     public void Win()
     {
-        PlayGamesPlatform.Instance.ReportProgress(GPGSIds.achievement_login, 100f, null);
+        PlayGamesPlatform.Instance.ReportProgress(GPGSIds.achievement_menang, 100f, null);
     }
 
     public void Lose()
     {
-        PlayGamesPlatform.Instance.ReportProgress(GPGSIds.achievement_login, 100f, null);
+        PlayGamesPlatform.Instance.ReportProgress(GPGSIds.achievement_kalah, 100f, null);
     }
 }
