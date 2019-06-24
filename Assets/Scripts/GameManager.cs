@@ -42,23 +42,10 @@ public class GameManager : MonoBehaviour
     void FixedUpdate()
     {
         if(PhotonNetwork.CurrentRoom.PlayerCount == 2)
-        {
             btnPush.gameObject.SetActive(true);
-        }
+
         if (CheckEndGame())
-        {
-            //UpdatePlayers();
             UpdateStamina();
-        }
-
-        if (PhotonNetwork.IsMasterClient)
-        {
-            Debug.Log("Master");
-        } else
-        {
-            Debug.Log("Client");
-        }
-
     }
 
     public void OnClickPushButton()
@@ -69,8 +56,6 @@ public class GameManager : MonoBehaviour
             if (Stamina >= PUSH_STAMINA_COST)
             {
                 Stamina -= 100;
-                //PushPoints += 50;
-                Debug.Log("Master Push");
                 arrayOfPlayer[0].GetComponent<Transform>().Translate(new Vector3(25 * Time.deltaTime, 0, 0));
                 
             }
@@ -78,9 +63,7 @@ public class GameManager : MonoBehaviour
         {
             if (Stamina >= PUSH_STAMINA_COST)
             {
-                Stamina -= 100; 
-                //PushPoints -= 50;
-                Debug.Log("Client Push");
+                Stamina -= 100;
                 arrayOfPlayer[1].GetComponent<Transform>().Translate(new Vector3(-25 * Time.deltaTime, 0, 0));
               
             }
@@ -100,14 +83,12 @@ public class GameManager : MonoBehaviour
         {
             if (PushPoints > MAX_PUSH_POINTS)
             {
-                Debug.Log("You Win");
                 btnPush.gameObject.SetActive(false);
                 btnWin.gameObject.SetActive(true);
                 return false;
             }
             else if (PushPoints < 0)
             {
-                Debug.Log("You Lose");
                 btnPush.gameObject.SetActive(false);
                 btnLose.gameObject.SetActive(true);
                 return false;
@@ -116,14 +97,12 @@ public class GameManager : MonoBehaviour
         {
             if (PushPoints > MAX_PUSH_POINTS)
             {
-                Debug.Log("You Lose");
                 btnPush.gameObject.SetActive(false);
                 btnLose.gameObject.SetActive(true);
                 return false;
             }
             else if (PushPoints < 0)
             {
-                Debug.Log("You Win");
                 btnPush.gameObject.SetActive(false);
                 btnWin.gameObject.SetActive(true);
                 return false;
@@ -134,24 +113,13 @@ public class GameManager : MonoBehaviour
         return true;
     }
 
-    private void UpdatePlayers()
-    {
-        if (PhotonNetwork.IsMasterClient)
-        {
-            arrayOfPlayer[0].transform.position = new Vector3(-3 + (5 * PushPoints / MAX_PUSH_POINTS), 0);
-            arrayOfPlayer[1].transform.position = new Vector3(-2 + (5 * PushPoints / MAX_PUSH_POINTS), 0);
-        }
-        else
-        {
-            arrayOfPlayer[1].transform.position = new Vector3(-3 + (5 * PushPoints / MAX_PUSH_POINTS), 0);
-            arrayOfPlayer[0].transform.position = new Vector3(-2 + (5 * PushPoints / MAX_PUSH_POINTS), 0);
-        }
-    }
-
     private void UpdateStamina()
     {
+        int randomStaminaRegenPoint;
+        randomStaminaRegenPoint = Random.Range(1, 3);
+
         if(Stamina< MAX_STAMINA)
-            Stamina += STAMINA_REGEN;
+            Stamina += STAMINA_REGEN * randomStaminaRegenPoint;
 
         if (Stamina >= MAX_STAMINA)
             Stamina = MAX_STAMINA;

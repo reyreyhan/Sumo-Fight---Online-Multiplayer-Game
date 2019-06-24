@@ -15,7 +15,6 @@ public class UnlockWinAchievement : MonoBehaviour
         PlayGamesPlatform.Instance.ReportProgress(GPGSIds.achievement_menang, 100f, null);
         PlayGamesPlatform.Instance.ReportScore(randomPlayerScore, GPGSIds.leaderboard_score, (bool success) => {
         });
-        Debug.Log("Win Scene");
 
     }
 
